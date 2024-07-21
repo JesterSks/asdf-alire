@@ -82,7 +82,7 @@ get_platform() {
 	platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
 	case "$platform" in
-		linux | darwin | windows) ;;
+		linux | windows) ;;
 		*)
 			fail "Platform '${platform}' not supported!"
 			;;
