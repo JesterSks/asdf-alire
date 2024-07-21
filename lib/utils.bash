@@ -62,7 +62,7 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		cp -r "$ASDF_DOWNLOAD_PATH"/bin/* "$install_path"
 
 		# TODO: Assert alire executable exists.
 		local tool_cmd
