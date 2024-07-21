@@ -78,11 +78,13 @@ install_version() {
 
 get_platform() {
 	local platform=""
+	local check_platform=""
 
-	platform="$(uname | tr '[:upper:]' '[:lower:]')"
+	check_platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
-	case "$platform" in
-		linux | windows) ;;
+	case "$check_platform" in
+		linux) platform=$check_platform ;;
+		darwin) platform="macos" ;;
 		*)
 			fail "Platform '${platform}' not supported!"
 			;;
