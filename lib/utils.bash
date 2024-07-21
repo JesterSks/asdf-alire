@@ -37,12 +37,15 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url
+	local version filename url platform arch
 	version="$1"
 	filename="$2"
+	platform=$(get_platform)
+	arch=$(get_arch)
 
+	# https://github.com/alire-project/alire/releases/download/v2.0.1/alr-2.0.1-bin-x86_64-linux.zip
 	# TODO: Adapt the release URL convention for alire
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/releases/download/v${version}/alr-${version}-bin-${arch}-${platform}.zip"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -59,7 +62,7 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		cp -r "$ASDF_DOWNLOAD_PATH"/bin/* "$install_path"
 
 		# TODO: Assert alire executable exists.
 		local tool_cmd
@@ -71,4 +74,35 @@ install_version() {
 		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
 	)
+}
+
+get_platform() {
+	local platform check_platform
+
+	check_platform="$(uname | tr '[:upper:]' '[:lower:]')"
+
+	case "$check_platform" in
+	linux) platform=$check_platform ;;
+	darwin) platform="macos" ;;
+	*)
+		fail "Platform '${platform}' not supported!"
+		;;
+	esac
+
+	printf "%s" "$platform"
+}
+
+get_arch() {
+	local arch arch_check
+
+	arch_check="$(uname -m)"
+
+	case "${arch_check}" in
+	x86_64 | amd64) arch="x86_64" ;;
+	*)
+		fail "Arch '${arch_check}' not supported!"
+		;;
+	esac
+
+	printf "%s" "$arch"
 }
