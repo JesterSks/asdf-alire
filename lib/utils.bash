@@ -77,15 +77,12 @@ install_version() {
 }
 
 get_platform() {
-	local silent=${1:-}
 	local platform=""
 
 	platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
 	case "$platform" in
-		linux | darwin | windows)
-			[ -z "$silent" ] && msg "Platform '${platform}' supported!"
-			;;
+		linux | darwin | windows) ;;
 		*)
 			fail "Platform '${platform}' not supported!"
 			;;
@@ -106,8 +103,4 @@ get_arch() {
 	esac
 
 	printf "%s" "$arch"
-}
-
-msg() {
-	printf "\033[32m%s\033[39m" "$1"
 }
