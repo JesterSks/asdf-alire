@@ -80,7 +80,7 @@ get_platform() {
 	local silent=${1:-}
 	local platform=""
 
-	platform="$(uanme | tr '[:upper:]' '[:lower:]')"
+	platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
 	case "$platform" in
 		linux | darwin | windows)
