@@ -82,11 +82,11 @@ get_platform() {
 	check_platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
 	case "$check_platform" in
-		linux) platform=$check_platform ;;
-		darwin) platform="macos" ;;
-		*)
-			fail "Platform '${platform}' not supported!"
-			;;
+	linux) platform=$check_platform ;;
+	darwin) platform="macos" ;;
+	*)
+		fail "Platform '${platform}' not supported!"
+		;;
 	esac
 
 	printf "%s" "$platform"
@@ -98,10 +98,10 @@ get_arch() {
 	arch_check="$(uname -m)"
 
 	case "${arch_check}" in
-		x86_64 | amd64) arch="x86_64" ;;
-		*)
-			fail "Arch '${arch_check}' not supported!"
-			;;
+	x86_64 | amd64) arch="x86_64" ;;
+	*)
+		fail "Arch '${arch_check}' not supported!"
+		;;
 	esac
 
 	printf "%s" "$arch"
