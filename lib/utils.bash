@@ -77,8 +77,7 @@ install_version() {
 }
 
 get_platform() {
-	local platform=""
-	local check_platform=""
+	local platform check_platform
 
 	check_platform="$(uname | tr '[:upper:]' '[:lower:]')"
 
@@ -94,8 +93,9 @@ get_platform() {
 }
 
 get_arch() {
-	local arch=""
-	local arch_check="$(uname -m)"
+	local arch arch_check
+
+	arch_check="$(uname -m)"
 
 	case "${arch_check}" in
 		x86_64 | amd64) arch="x86_64" ;;
